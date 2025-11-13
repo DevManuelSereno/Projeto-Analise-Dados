@@ -68,15 +68,6 @@ if lista_dataframes:
     df_final.to_csv("cnes_combinado_2019_2024.csv", index=False, encoding='utf-8')
     print("Arquivo 'cnes_combinado_2019_2024.csv' salvo.")
 
-    # Opção B: Salvar como Parquet (RECOMENDADO)
-    # É mais rápido e ocupa menos espaço que CSV.
-    # Pode precisar de 'pip install pyarrow'
-#     try:
-#         print("\nSalvando em Parquet (mais rápido)...")
-#         df_final.to_parquet("aih_combinado_2019_2024.parquet", index=False)
-#         print("Arquivo 'aih_combinado_2019_2024.parquet' salvo.")
-#     except ImportError:
-#         print("\nPara salvar em Parquet, instale 'pyarrow': pip install pyarrow")
-
-# else:
-#     print("Nenhum dado foi carregado. Encerrando o script.")
+    
+else:
+    print("Nenhum dado foi carregado. Encerrando o script.")
