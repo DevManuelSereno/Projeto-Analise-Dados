@@ -1,14 +1,15 @@
 import os
 import pandas as pd
-import pyodbc
+from dbfread import DBF
+from datasus_dbc import decompress  # 👈 importa o método para descompactar
 
 # 🗂️ Caminho da pasta com os arquivos .DBC
-input_folder = r"C:/Users/Manuel Sereno/Documents/teste Python/Projeto-Analise-Dados/dbc-data-aih"
+input_folder = r"C:\Users\User\Desktop\Projeto-Analise-Dados\dados"
 # 📁 Caminho da pasta onde os .CSV serão salvos
-output_folder = r"C:/Users/Manuel Sereno/Documents/teste Python/Projeto-Analise-Dados/csv-data-aih"
+output_folder = r"C:\Users\User\Desktop\Projeto-Analise-Dados\dadoscsv"
 
 # Cria a pasta de saída se não existir
-# os.makedirs(output_folder, exist_ok=True)
+os.makedirs(output_folder, exist_ok=True)
 
 # 🔍 Lista todos os arquivos .dbc da pasta
 dbc_files = [f for f in os.listdir(input_folder) if f.lower().endswith(".dbc")]
@@ -23,47 +24,24 @@ for file_name in dbc_files:
     dbc_path = os.path.join(input_folder, file_name)
     base_name = os.path.splitext(file_name)[0]  # nome sem extensão
 
-    print(f"🔸 Processando banco: {file_name}")
+    print(f"🔸 Convertendo {file_name}...")
 
     try:
-        # Conexão com o driver Visual FoxPro
-        conn_str = (
-            r"Driver={Microsoft Visual FoxPro Driver};"
-            f"SourceType=DBC;"
-            f"SourceDB={dbc_path};"
-            "Exclusive=No;"
-        )
-        conn = pyodbc.connect(conn_str)
-        cursor = conn.cursor()
+        # 🔽 Descompacta o .dbc para .dbf temporário
+        dbf_path = os.path.join(output_folder, f"{base_name}.dbf")
+        decompress(dbc_path, dbf_path)
 
-        # Lista todas as tabelas no banco DBC
-        tables = [t.table_name for t in cursor.tables() if t.table_type == "TABLE"]
+        # 📖 Lê o arquivo .dbf com dbfread
+        table = DBF(dbf_path, encoding="latin1")
+        df = pd.DataFrame(iter(table))
 
-        if not tables:
-            print(f"⚠ Nenhuma tabela encontrada em {file_name}.")
-            conn.close()
-            continue
+        # 💾 Salva como CSV
+        csv_path = os.path.join(output_folder, f"{base_name}.csv")
+        df.to_csv(csv_path, index=False, encoding="utf-8-sig")
 
-        print(f"📋 {len(tables)} tabela(s) encontrada(s): {', '.join(tables)}")
-
-        # Cria subpasta para cada DBC
-        subfolder = os.path.join(output_folder, base_name)
-        os.makedirs(subfolder, exist_ok=True)
-
-        # Exporta cada tabela
-        for table in tables:
-            try:
-                df = pd.read_sql_query(f"SELECT * FROM {table}", conn)
-                csv_table_path = os.path.join(subfolder, f"{base_name}_{table}.csv")
-                df.to_csv(csv_table_path, index=False, encoding="utf-8-sig")
-                print(f"✅ {table} → {csv_table_path}")
-            except Exception as e:
-                print(f"⚠ Erro ao exportar tabela '{table}' do banco '{file_name}': {e}")
-
-        conn.close()
-        print(f"✅ Conversão concluída para {file_name}\n")
+        print(f"✅ {file_name} → {csv_path}")
 
     except Exception as e:
-        print(f"❌ Erro ao processar {file_name}: {e}\n")
+        print(f"❌ Erro ao converter {file_name}: {e}")
 
 print("\n🎉 Todas as conversões foram concluídas!")
