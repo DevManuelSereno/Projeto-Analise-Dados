@@ -10,7 +10,7 @@ dir_antigo = "/dissemin/publicos/SIHSUS/200801_/Dados/"
 dir_novo_base = "/dissemin/publicos/SIHSUS/Novos_Sistemas/"
 
 # Seu diretório local
-local_dir = "C:/Users/Manuel Sereno/Documents/teste Python/Projeto-Analise-Dados/dbc-data-aih"
+local_dir = r"C:\Users\User\Desktop\Projeto-Analise-Dados\dados"
 os.makedirs(local_dir, exist_ok=True) # Garante que o diretório exista
 
 anos = range(2019, 2025)
