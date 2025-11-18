@@ -1,59 +1,119 @@
 import os
 import pandas as pd
 from dbfread import DBF
-from dbctodbf import DBCDecompress   # 🔥 nova biblioteca recomendada
+from dbctodbf import DBCDecompress
 
-# 🗂️ Pasta com os arquivos .DBC baixados do CNES
-input_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/dbc-data-cnes"
 
-# 📁 Pasta onde ficarão os arquivos .CSV
-output_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/csv-data-cnes"
-os.makedirs(output_folder, exist_ok=True)
+class DBCConverter:
+    """
+    Classe para converter arquivos .DBC em CSV.
+    """
 
-# 🔍 Localiza todos os .DBC
-dbc_files = [f for f in os.listdir(input_folder) if f.lower().endswith(".dbc")]
+    def __init__(self, input_folder: str, output_folder: str):
+        self.input_folder = input_folder
+        self.output_folder = output_folder
+        os.makedirs(self.output_folder, exist_ok=True)
+        self.decompresser = DBCDecompress()
 
-if not dbc_files:
-    print("⚠ Nenhum arquivo .DBC encontrado.")
-    exit()
+    # --------------------------
+    # Localizar arquivos .DBC
+    # --------------------------
+    def listar_dbc_files(self):
+        return [f for f in os.listdir(self.input_folder) if f.lower().endswith(".dbc")]
 
-print(f"📦 {len(dbc_files)} arquivo(s) .DBC encontrado(s). Iniciando conversão...\n")
+    # --------------------------
+    # Converter um único arquivo
+    # --------------------------
+    def converter_arquivo(self, file_name: str):
+        dbc_path = os.path.join(self.input_folder, file_name)
+        base_name = os.path.splitext(file_name)[0]
 
-# Criar um único objeto decompresser (mais rápido)
-decompresser = DBCDecompress()
-
-for file_name in dbc_files:
-    dbc_path = os.path.join(input_folder, file_name)
-    base_name = os.path.splitext(file_name)[0]
-
-    print(f"🔸 Convertendo {file_name}...")
-    print(f"🔸 Convertendo {file_name}...")
-
-    try:
-        # 🔽 Converte DBC → DBF
-        dbf_path = os.path.join(output_folder, f"{base_name}.dbf")
-        decompresser.decompressFile(dbc_path, dbf_path)
-
-        # 📖 Lê o .dbf com dbfread
-        table = DBF(dbf_path, encoding="latin1")
-        df = pd.DataFrame(iter(table))
-
-        # 💾 Salva CSV
-        csv_path = os.path.join(output_folder, f"{base_name}.csv")
-        df.to_csv(csv_path, index=False, encoding="utf-8-sig")
-
-        print(f"✅ Sucesso: {file_name} → {csv_path}\n")
-
-    except Exception as e:
-        print(f"❌ Erro ao converter {file_name}: {e}\n")
-
-# 🧹 Removendo arquivos .DBF temporários
-for f in os.listdir(output_folder):
-    if f.lower().endswith(".dbf"):
         try:
-            os.remove(os.path.join(output_folder, f))
-            print(f"🧹 Arquivo temporário removido: {f}")
-        except Exception as e:
-            print(f"⚠ Erro ao remover {f}: {e}")
+            # DBC → DBF
+            dbf_path = os.path.join(self.output_folder, f"{base_name}.dbf")
+            self.decompresser.decompressFile(dbc_path, dbf_path)
 
-print("🎉 Conversão finalizada com sucesso!")
+            # DBF → DataFrame
+            table = DBF(dbf_path, encoding="latin1")
+            df = pd.DataFrame(iter(table))
+
+            # Salvar CSV
+            csv_path = os.path.join(self.output_folder, f"{base_name}.csv")
+            df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+
+            print(f"✅ Sucesso: {file_name} → {csv_path}")
+            return csv_path
+
+        except Exception as e:
+            print(f"❌ Erro ao converter {file_name}: {e}")
+            return None
+
+    # --------------------------
+    # Converter todos os arquivos
+    # --------------------------
+    def converter_todos(self):
+        dbc_files = self.listar_dbc_files()
+        if not dbc_files:
+            print("⚠ Nenhum arquivo .DBC encontrado.")
+            return []
+
+        print(f"📦 {len(dbc_files)} arquivo(s) .DBC encontrado(s). Iniciando conversão...\n")
+        converted_files = []
+
+        for file_name in dbc_files:
+            print(f"🔸 Convertendo {file_name}...")
+            csv_path = self.converter_arquivo(file_name)
+            if csv_path:
+                converted_files.append(csv_path)
+
+        print("\n🎉 Conversão finalizada com sucesso!")
+        return converted_files
+
+    # --------------------------
+    # Limpar arquivos DBF temporários
+    # --------------------------
+    def limpar_dbf_temporarios(self):
+        removed_files = []
+        for f in os.listdir(self.output_folder):
+            if f.lower().endswith(".dbf"):
+                try:
+                    os.remove(os.path.join(self.output_folder, f))
+                    removed_files.append(f)
+                    print(f"🧹 Arquivo temporário removido: {f}")
+                except Exception as e:
+                    print(f"⚠ Erro ao remover {f}: {e}")
+        return removed_files
+
+
+# ==========================
+# Função específica para CNES
+# ==========================
+def converter_cnes():
+    input_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/dbc-data-cnes"
+    output_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/csv-data-cnes"
+
+    converter = DBCConverter(input_folder, output_folder)
+    converter.converter_todos()
+    converter.limpar_dbf_temporarios()
+
+
+# ==========================
+# Função específica para AIH
+# ==========================
+def converter_aih():
+    input_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/dbc-data-aih"
+    output_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/csv-data-aih"
+
+    converter = DBCConverter(input_folder, output_folder)
+    converter.converter_todos()
+    converter.limpar_dbf_temporarios()
+
+
+# ==========================
+# Exemplo de uso
+# ==========================
+# if __name__ == "__main__":
+#     print("🔹 Convertendo CNES...")
+#     converter_cnes()
+    # print("\n🔹 Convertendo AIH...")
+    # converter_aih()
