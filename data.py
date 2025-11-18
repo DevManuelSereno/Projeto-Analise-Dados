@@ -6,11 +6,12 @@ ftp = FTP(ftp_host)
 ftp.login()
 
 # Diretórios base do FTP
-dir_antigo = "/dissemin/publicos/SIHSUS/200801_/Dados/"
-dir_novo_base = "/dissemin/publicos/SIHSUS/Novos_Sistemas/"
+# dir_antigo = "/dissemin/publicos/SIHSUS/200801_/Dados/" Caminho para adquirir arquivos AIH
+dir_antigo = "/dissemin/publicos/CNES/200508_/Dados/ST/"
+# dir_novo_base = "/dissemin/publicos/SIHSUS/Novos_Sistemas/"
 
 # Seu diretório local
-local_dir = "C:/Users/Manuel Sereno/Documents/teste Python/Projeto-Analise-Dados/dbc-data-aih"
+local_dir = "C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/dbc-data-cnes"
 os.makedirs(local_dir, exist_ok=True) # Garante que o diretório exista
 
 anos = range(2019, 2025)
@@ -38,11 +39,11 @@ for ano in anos:
         # A lógica do NOME do arquivo ainda muda baseada na data
         if ano < 2021 or (ano == 2021 and mes <= 7):
             # 1. Padrão de nome antigo: RDBA{YY}{MM}.dbc
-            nome_arquivo_ftp = f"RD{uf.upper()}{ano_str_2}{mes_str}.dbc"
+            nome_arquivo_ftp = f"ST{uf.upper()}{ano_str_2}{mes_str}.dbc"
         
         elif (ano == 2021 and mes >= 8) or ano > 2021:
             # 2. Padrão de nome novo: RDBA{MM}{YY}.dbc
-            nome_arquivo_ftp = f"RD{uf.upper()}{ano_str_2}{mes_str}.dbc" 
+            nome_arquivo_ftp = f"ST{uf.upper()}{ano_str_2}{mes_str}.dbc" 
 
         # Caminho local onde o arquivo será salvo
         local_path = os.path.join(local_dir, nome_arquivo_ftp)

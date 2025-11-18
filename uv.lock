@@ -3,12 +3,71 @@ revision = 3
 requires-python = ">=3.12"
 
 [[package]]
+name = "aenum"
+version = "3.1.16"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e3/52/6ad8f63ec8da1bf40f96996d25d5b650fdd38f5975f8c813732c47388f18/aenum-3.1.16-py3-none-any.whl", hash = "sha256:9035092855a98e41b66e3d0998bd7b96280e85ceb3a04cc035636138a1943eaf", size = 165627, upload-time = "2025-04-25T03:17:58.89Z" },
+]
+
+[[package]]
+name = "antlr4-python3-runtime"
+version = "4.11.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/64/c548678120cccf784f555972ed37cedcf4f026abeec30ab0340c3af4ea07/antlr4-python3-runtime-4.11.1.tar.gz", hash = "sha256:a53de701312f9bdacc5258a6872cd6c62b90d3a90ae25e494026f76267333b60", size = 116945, upload-time = "2022-09-04T21:37:45.242Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b6/3a/4f2e9d67277cc255a17a34c1b54e02d939ca5991bc596dee3d63e587e512/antlr4_python3_runtime-4.11.1-py3-none-any.whl", hash = "sha256:ff1954eda1ca9072c02bf500387d0c86cb549bef4dbb3b64f39468b547ec5f6b", size = 144186, upload-time = "2022-09-04T21:37:43.264Z" },
+]
+
+[[package]]
+name = "autopep8"
+version = "2.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pycodestyle" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/50/d8/30873d2b7b57dee9263e53d142da044c4600a46f2d28374b3e38b023df16/autopep8-2.3.2.tar.gz", hash = "sha256:89440a4f969197b69a995e4ce0661b031f455a9f776d2c5ba3dbd83466931758", size = 92210, upload-time = "2025-01-14T14:46:18.454Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9e/43/53afb8ba17218f19b77c7834128566c5bbb100a0ad9ba2e8e89d089d7079/autopep8-2.3.2-py2.py3-none-any.whl", hash = "sha256:ce8ad498672c845a0c3de2629c15b635ec2b05ef8177a6e7c91c74f3e9b51128", size = 45807, upload-time = "2025-01-14T14:46:15.466Z" },
+]
+
+[[package]]
+name = "dbc-to-dbf"
+version = "1.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/fe/b7/a326a1fdeb3064274c71b08a8e9650d753559c1fbc9d8bd3650b7dc6705d/dbc_to_dbf-1.0.1.tar.gz", hash = "sha256:2ca9c33c5790b987ee9018e253666770aca3d07f62afc84a54a137fd892fbd5f", size = 6210, upload-time = "2025-07-24T23:00:51.509Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/5f/07da0e48af71a87ee36e3b167bf11e02d482ae06c47f2c6e5e55aad6d3f6/dbc_to_dbf-1.0.1-py3-none-any.whl", hash = "sha256:e0f894715e295e0dc46f8d55b434719af6892899974ec1da6231f64343c9a3b3", size = 8046, upload-time = "2025-07-24T23:00:50.353Z" },
+]
+
+[[package]]
+name = "dbf"
+version = "0.99.11"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aenum" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0d/8e/ea5c3caa47a708f2a69cd2b8228bd590c592e2edf6f810b30d42d1e9435b/dbf-0.99.11.tar.gz", hash = "sha256:2169c05252c0efbe897f346f0683326ec25854beab1d0c6430df6e903a57b315", size = 104747, upload-time = "2025-09-02T20:07:49.156Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ab/95/d42256fd40584bf62a83ac8d9fb34d0a130c01dad4b0bc345f7fe0798748/dbf-0.99.11-py3-none-any.whl", hash = "sha256:0caeaeee80c486b7422a6e25cdc7da61dd0007fe652a005b2bdf1b1dd0b18e00", size = 110038, upload-time = "2025-09-02T20:07:45.397Z" },
+]
+
+[[package]]
 name = "dbfread"
 version = "2.0.7"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ad/ae/a5891681f5012724d062a4ca63ec2ff539c73d5804ba594e7e0e72099d3f/dbfread-2.0.7.tar.gz", hash = "sha256:07c8a9af06ffad3f6f03e8fe91ad7d2733e31a26d2b72c4dd4cfbae07ee3b73d", size = 33212, upload-time = "2016-11-25T11:25:01.408Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4c/94/51349e43503e30ed7b4ecfe68a8809cdb58f722c0feb79d18b1f1e36fe74/dbfread-2.0.7-py2.py3-none-any.whl", hash = "sha256:f604def58c59694fa0160d7be5d0b8d594467278d2bb6a47d46daf7162c84cec", size = 20018, upload-time = "2016-11-25T11:27:36.001Z" },
+]
+
+[[package]]
+name = "isort"
+version = "4.3.21"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/43/00/8705e8d0c05ba22f042634f791a61f4c678c32175763dcf2ca2a133f4739/isort-4.3.21.tar.gz", hash = "sha256:54da7e92468955c4fceacd0c86bd0ec997b0e1ee80d97f67c35a78b719dccab1", size = 69546, upload-time = "2019-06-26T01:12:56.466Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e5/b0/c121fd1fa3419ea9bfd55c7f9c4fedfec5143208d8c7ad3ce3db6c623c21/isort-4.3.21-py2.py3-none-any.whl", hash = "sha256:6e811fcb295968434526407adb8796944f1988c5b65e8139058f2014cbe100fd", size = 42281, upload-time = "2019-06-26T01:12:54.587Z" },
 ]
 
 [[package]]
@@ -126,16 +185,29 @@ name = "projeto-analise-dados"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "dbc-to-dbf" },
     { name = "dbfread" },
     { name = "pandas" },
     { name = "pyodbc" },
+    { name = "vfp2py" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "dbc-to-dbf", specifier = ">=1.0.1" },
     { name = "dbfread", specifier = ">=2.0.7" },
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "pyodbc", specifier = ">=5.3.0" },
+    { name = "vfp2py", specifier = ">=0.1.1" },
+]
+
+[[package]]
+name = "pycodestyle"
+version = "2.14.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/11/e0/abfd2a0d2efe47670df87f3e3a0e2edda42f055053c85361f19c0e2c1ca8/pycodestyle-2.14.0.tar.gz", hash = "sha256:c4b5b517d278089ff9d0abdec919cd97262a3367449ea1c8b49b91529167b783", size = 39472, upload-time = "2025-06-20T18:49:48.75Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d7/27/a58ddaf8c588a3ef080db9d0b7e0b97215cee3a45df74f3a94dbbf5c893a/pycodestyle-2.14.0-py2.py3-none-any.whl", hash = "sha256:dd6bf7cb4ee77f8e016f9c8e74a35ddd9f67e1d5fd4184d86c3b98e07099f42d", size = 31594, upload-time = "2025-06-20T18:49:47.491Z" },
 ]
 
 [[package]]
@@ -219,4 +291,20 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/95/32/1a225d6164441be760d75c2c42e2780dc0873fe382da3e98a2e1e48361e5/tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9", size = 196380, upload-time = "2025-03-23T13:54:43.652Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5c/23/c7abc0ca0a1526a0774eca151daeb8de62ec457e77262b66b359c3c7679e/tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8", size = 347839, upload-time = "2025-03-23T13:54:41.845Z" },
+]
+
+[[package]]
+name = "vfp2py"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "antlr4-python3-runtime" },
+    { name = "autopep8" },
+    { name = "dbf" },
+    { name = "isort" },
+    { name = "pyodbc" },
+    { name = "python-dateutil" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/e2/0fb269bc239619712100579d8147a10f2d6fe247393278c559c7b54914a6/vfp2py-0.1.1-py2.py3-none-any.whl", hash = "sha256:d3897ebd5e375b276c39b9c0dfecb54b457361f73d534a807d18b126c78c9c98", size = 166764, upload-time = "2023-02-08T21:24:28.681Z" },
 ]
