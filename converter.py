@@ -27,6 +27,7 @@ for file_name in dbc_files:
     base_name = os.path.splitext(file_name)[0]
 
     print(f"🔸 Convertendo {file_name}...")
+    print(f"🔸 Convertendo {file_name}...")
 
     try:
         # 🔽 Converte DBC → DBF
