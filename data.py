@@ -178,6 +178,32 @@ def baixar_aih(uf, anos, meses, local_dir):
     downloader.baixar_arquivos(arquivos)
     print("Arquivos baixados com sucesso!")
     downloader.fechar()
+
+
+def baixar_sp(uf, anos, meses, local_dir):
+    # padrão de nome para SP no SIH/SUS
+    def nome_sp(ano, mes, uf):
+        ano2 = str(ano)[-2:]
+        mes2 = f"{mes:02d}"
+        return f"SP{uf.upper()}{ano2}{mes2}.dbc"
+
+    downloader = FTPDownloader(
+        ftp_host="ftp.datasus.gov.br",
+        ftp_dir="/dissemin/publicos/SIHSUS/200801_/Dados/",
+        local_dir=local_dir,
+        uf=uf,
+        pattern=nome_sp
+    )
+
+    downloader.conectar()
+    arquivos = [downloader.gerar_nome_arquivo(ano, mes) for ano in anos for mes in meses]
+    downloader.baixar_arquivos(arquivos)
+    print("Arquivos SP baixados com sucesso!")
+    downloader.fechar()
+
+
+
+   
     
 # ==========================
 # Exemplo de uso

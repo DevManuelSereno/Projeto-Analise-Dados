@@ -89,8 +89,8 @@ class DBCConverter:
 # Função específica para CNES
 # ==========================
 def converter_cnes():
-    input_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/dbc-data-cnes"
-    output_folder = r"C:/Users/GAMER/OneDrive/Documentos/Faculdade/Projeto-DADOS/Code-Projeto/csv-data-cnes"
+    input_folder = r"C:\Users\User\Desktop\Dados\cnes\CNES-dbc"
+    output_folder = r"C:\Users\User\Desktop\Dados\cnes\CNES-csv"
 
     converter = DBCConverter(input_folder, output_folder)
     converter.converter_todos()
@@ -107,6 +107,15 @@ def converter_aih():
     converter = DBCConverter(input_folder, output_folder)
     converter.converter_todos()
     converter.limpar_dbf_temporarios()
+
+
+def converter_sp():
+    input_folder = r"C:/Users/User/Desktop/data/SP-dbc"   # pasta onde estão os .dbc de SP
+    output_folder = r"C:/Users/User/Desktop/data/SP-csv"  # pasta onde serão salvos os csv
+
+    converter = DBCConverter(input_folder, output_folder)
+    converter.converter_todos()
+    converter.limpar_dbf_temporarios()    
 
 
 # ==========================
